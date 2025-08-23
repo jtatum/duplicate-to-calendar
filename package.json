@@ -5,6 +5,7 @@
   "scripts": {
     "build": "npm run clean && tsc && esbuild dist/background/index.js --outfile=dist/background.js --format=iife --bundle --platform=browser --target=chrome88 && esbuild dist/content/index.js --outfile=dist/content.js --format=iife --bundle --platform=browser --target=chrome88 && esbuild dist/options/index.js --outfile=dist/options.js --format=iife --bundle --platform=browser --target=chrome88",
     "build:prod": "NODE_ENV=production npm run clean && tsc && esbuild dist/background/index.js --outfile=dist/background.js --format=iife --bundle --platform=browser --target=chrome88 --minify --define:process.env.NODE_ENV='\"production\"' && esbuild dist/content/index.js --outfile=dist/content.js --format=iife --bundle --platform=browser --target=chrome88 --minify --define:process.env.NODE_ENV='\"production\"' && esbuild dist/options/index.js --outfile=dist/options.js --format=iife --bundle --platform=browser --target=chrome88 --minify --define:process.env.NODE_ENV='\"production\"'",
+    "package": "npm run build:prod && zip -r duplicate-to-calendar-extension.zip manifest.json dist/ icons/ styles/ options/ PRIVACY.md LICENSE README.md -x '*.DS_Store' '*/.*'",
     "build:watch": "npm run build -- --watch",
     "typecheck": "tsc --noEmit",
     "test": "jest",

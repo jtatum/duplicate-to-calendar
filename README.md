@@ -91,8 +91,10 @@ npm run test -- --coverage
 
 ### Development Scripts
 
-- `npm run build` - Build the extension for production
+- `npm run build` - Build the extension for development
+- `npm run build:prod` - Build optimized version for production
 - `npm run build:watch` - Build in watch mode for development
+- `npm run package` - Create distributable ZIP package
 - `npm run typecheck` - Check TypeScript types without building
 - `npm run test` - Run the test suite
 - `npm run test:watch` - Run tests in watch mode
@@ -111,7 +113,21 @@ npm run test -- --coverage
 
 ### For Users
 
-The extension can be installed from the Chrome Web Store (once published) or by loading the unpacked extension in developer mode.
+**Option 1: Chrome Web Store (Recommended)**
+- Install directly from the Chrome Web Store (once published)
+- Automatic updates and easy installation
+
+**Option 2: Manual Installation**
+1. Download the latest `duplicate-to-calendar-extension.zip` from releases
+2. Extract the ZIP file
+3. Open Chrome and go to `chrome://extensions/`
+4. Enable "Developer mode"
+5. Click "Load unpacked" and select the extracted folder
+
+**Option 3: Build from Source**
+1. Clone this repository and run `npm run package`
+2. Extract the generated `duplicate-to-calendar-extension.zip`
+3. Follow steps 3-5 from Option 2 above
 
 ## 🔧 Configuration
 

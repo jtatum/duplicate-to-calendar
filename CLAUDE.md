@@ -66,6 +66,7 @@ The project uses TypeScript compilation followed by esbuild bundling:
 npm run build        # Full build: tsc + esbuild bundling
 npm run build:prod   # Production build: minified with info logs suppressed
 npm run build:watch  # Build in watch mode for development
+npm run package      # Create production ZIP package for distribution
 npm run typecheck    # Type checking without compilation
 npm run test         # Run Jest test suite
 npm run test:watch   # Run tests in watch mode
@@ -86,6 +87,14 @@ npm run test -- --verbose  # Detailed output
 2. Load unpacked extension in Chrome from project root (not dist/)
 3. Make changes - builds automatically rebuild
 4. Reload extension in Chrome to test changes
+
+### Extension Packaging for Distribution
+1. Run `npm run package` to create `duplicate-to-calendar-extension.zip`
+2. This ZIP contains everything needed for Chrome Web Store or sideloading:
+   - Production-optimized JavaScript bundles
+   - All required assets (icons, styles, manifest)
+   - Legal files (LICENSE, PRIVACY.md, README.md)
+3. Upload ZIP to Chrome Web Store or share for manual installation
 
 ## Event Detection Strategy
 
