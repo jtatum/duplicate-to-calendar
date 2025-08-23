@@ -8,30 +8,84 @@ Google Calendar Event Duplicator is a Chrome extension (Manifest V3) that adds a
 
 ## Architecture
 
-### Core Components
-- **`background.js`**: Service worker handling Google Calendar API authentication, API calls, and event duplication logic
-- **`content.js`**: Content script injected into `calendar.google.com` that detects event popups and injects duplicate buttons
-- **`options/`**: Settings page for selecting destination calendar
-- **`manifest.json`**: Chrome extension configuration with OAuth2 setup and required permissions
+### Modern TypeScript Structure
+The codebase has been completely refactored into a modular TypeScript architecture:
 
-### Key Data Flow
-1. Content script detects event popups via MutationObserver
-2. Extracts event info from DOM (event ID, title, time, calendar info)
-3. Background script authenticates with Google Calendar API
-4. Background script fetches original event and creates duplicate in destination calendar
+```
+src/
+├── shared/              # Shared utilities and type definitions
+│   ├── types.ts        # Comprehensive TypeScript interfaces for Google Calendar API
+│   ├── constants.ts    # Application constants and message actions
+│   ├── validators.ts   # Input validation functions
+│   ├── sanitizers.ts   # Data sanitization utilities
+│   └── utils.ts        # General utility functions and logging
+├── background/         # Background service worker (compiled to dist/background.js)
+│   ├── auth/           # Authentication management
+│   │   ├── authenticator.ts  # Chrome Identity API wrapper
+│   │   └── token-manager.ts  # OAuth token lifecycle management
+│   ├── api/            # Google Calendar API client
+│   │   ├── calendar-api.ts   # API client with retry logic
+│   │   └── calendar-cache.ts # Calendar list caching layer
+│   ├── services/       # Business logic services
+│   │   ├── event-duplicator.ts   # Core event duplication logic
+│   │   └── birthday-handler.ts   # Special birthday event handling
+│   ├── messaging/      # Chrome runtime messaging
+│   │   └── message-handler.ts    # Background message dispatcher
+│   └── index.ts        # Background script entry point
+├── content/            # Content script (compiled to dist/content.js)
+│   ├── observers/      # DOM observation and mutation handling
+│   │   ├── mutation-manager.ts   # MutationObserver lifecycle
+│   │   └── popup-detector.ts     # Event dialog detection
+│   ├── ui/             # UI components and state management
+│   │   ├── button-injector.ts    # Duplicate button injection
+│   │   └── button-state.ts       # Button visual state management
+│   ├── extractors/     # Event data extraction from DOM
+│   │   └── event-extractor.ts    # DOM parsing for event information
+│   └── index.ts        # Content script entry point
+└── options/            # Settings page (compiled to dist/options.js)
+    ├── components/     # UI components
+    │   ├── calendar-selector.ts  # Calendar selection dropdown
+    │   └── status-card.ts        # Authentication status display
+    ├── services/       # Settings management
+    │   ├── settings-manager.ts   # User preferences storage
+    │   └── auth-manager.ts       # Options page authentication
+    └── index.ts        # Options page entry point
+```
+
+### Build System
+The project uses TypeScript compilation followed by esbuild bundling:
+1. **TypeScript (`tsc`)**: Compiles all `.ts` files to `dist/` preserving structure
+2. **esbuild**: Bundles entry points into single files for each context:
+   - `dist/background.js` - Background service worker
+   - `dist/content.js` - Content script
+   - `dist/options.js` - Options page script
 
 ## Development Commands
 
 ```bash
-npm run build    # No-op - extension works directly without build step
-npm run test     # No tests configured yet
+npm run build        # Full build: tsc + esbuild bundling
+npm run build:prod   # Production build: minified with info logs suppressed
+npm run build:watch  # Build in watch mode for development
+npm run typecheck    # Type checking without compilation
+npm run test         # Run Jest test suite
+npm run test:watch   # Run tests in watch mode
+npm run clean        # Remove dist/ directory
+npm run dev          # Clean + build:watch (development workflow)
 ```
 
-To test the extension:
-1. Load unpacked extension in Chrome Developer Mode
-2. Grant calendar permissions when prompted
-3. Configure destination calendar in extension options
-4. Test on calendar.google.com event popups
+### Testing Commands
+```bash
+npm test                    # Run all tests
+npm run test:watch          # Watch mode
+npm run test -- --coverage # With coverage report
+npm run test -- --verbose  # Detailed output
+```
+
+### Extension Development Workflow
+1. Run `npm run dev` to start watch mode
+2. Load unpacked extension in Chrome from project root (not dist/)
+3. Make changes - builds automatically rebuild
+4. Reload extension in Chrome to test changes
 
 ## Event Detection Strategy
 

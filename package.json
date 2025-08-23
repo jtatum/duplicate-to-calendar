@@ -3,15 +3,30 @@
   "version": "1.0.0",
   "description": "Chrome extension to quickly duplicate Google Calendar events to another calendar",
   "scripts": {
-    "build": "echo 'No build step needed for basic extension'",
-    "test": "echo 'No tests specified'"
+    "build": "npm run clean && tsc && esbuild dist/background/index.js --outfile=dist/background.js --format=iife --bundle --platform=browser --target=chrome88 && esbuild dist/content/index.js --outfile=dist/content.js --format=iife --bundle --platform=browser --target=chrome88 && esbuild dist/options/index.js --outfile=dist/options.js --format=iife --bundle --platform=browser --target=chrome88",
+    "build:prod": "NODE_ENV=production npm run clean && tsc && esbuild dist/background/index.js --outfile=dist/background.js --format=iife --bundle --platform=browser --target=chrome88 --minify --define:process.env.NODE_ENV='\"production\"' && esbuild dist/content/index.js --outfile=dist/content.js --format=iife --bundle --platform=browser --target=chrome88 --minify --define:process.env.NODE_ENV='\"production\"' && esbuild dist/options/index.js --outfile=dist/options.js --format=iife --bundle --platform=browser --target=chrome88 --minify --define:process.env.NODE_ENV='\"production\"'",
+    "build:watch": "npm run build -- --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "clean": "rm -rf dist",
+    "dev": "npm run clean && npm run build:watch"
   },
   "keywords": [
     "chrome-extension",
     "google-calendar",
     "productivity"
   ],
-  "author": "",
+  "author": "Google Calendar Event Duplicator Extension",
   "license": "MIT",
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/chrome": "^0.0.268",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.30",
+    "esbuild": "^0.20.2",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.3"
+  }
 }

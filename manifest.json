@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Google Calendar Duplicate Events to Calendar",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Copy Google Calendar events to a specific calendar with one click",
 
   "permissions": [
@@ -25,12 +25,12 @@
   ],
 
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "dist/background.js"
   },
 
   "content_scripts": [{
     "matches": ["https://calendar.google.com/*"],
-    "js": ["content.js"],
+    "js": ["dist/content.js"],
     "css": ["styles/content.css"]
   }],
 
