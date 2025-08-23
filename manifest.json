@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "Google Calendar Duplicate Events to Calendar",
+  "version": "1.0",
+  "description": "Copy Google Calendar events to a specific calendar with one click",
+
+  "permissions": [
+    "identity",
+    "storage"
+  ],
+
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArC51DOXGLQsKI9DCSCoSjUXeG6UV17tqQqrRXReXf+FJ3ppqsto5Ukxg1RAQqFtiLhMP12IyxvKs2O12UgUpG9DnPi3H+sh3gorHtb5uoxFdvmKIO9zFqu5ZR9Cvhy+hdtSqLv8rAuOYBQF5YkrqzuZhrJ071WCaS3zP3uLp6+MmQUyqe8b5qSx2+eX74kqcIKhuMLyGn7y0H423T9rgfArDIaW5Z1YNUzOvhRw0ss/oXqlYIfZwkJX/io4e6mtQOHW42IV5ZlfLINXbAkEO3aPf5ZSVl+FfXLZhWEx85uAyCTfPUpyXRX+P46bOrj+jJGdbw4pYUftrNlXBV1gOHQIDAQAB",
+
+  "oauth2": {
+    "client_id": "1084028741439-3jdvjashnrb28d2nr8ktk1b73h8iln25.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar.calendarlist.readonly",
+      "https://www.googleapis.com/auth/calendar.events"
+    ]
+  },
+
+  "host_permissions": [
+    "https://www.googleapis.com/*",
+    "https://calendar.google.com/*"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "content_scripts": [{
+    "matches": ["https://calendar.google.com/*"],
+    "js": ["content.js"],
+    "css": ["styles/content.css"]
+  }],
+
+  "options_page": "options/options.html",
+
+  "action": {
+    "default_title": "Calendar Duplicator Settings"
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

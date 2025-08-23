@@ -1,0 +1,17 @@
+{
+  "name": "duplicate-to-calendar",
+  "version": "1.0.0",
+  "description": "Chrome extension to quickly duplicate Google Calendar events to another calendar",
+  "scripts": {
+    "build": "echo 'No build step needed for basic extension'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "chrome-extension",
+    "google-calendar",
+    "productivity"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {}
+}

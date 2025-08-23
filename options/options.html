@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar Duplicator Settings</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Google Calendar Event Duplicator</h1>
+        <p>Configure your default destination calendar for duplicated events.</p>
+        
+        <!-- Status Card -->
+        <div id="status-card" class="status-card status-loading">
+            <div class="status-icon">⏳</div>
+            <div class="status-details">
+                <div class="status-title">Checking Configuration...</div>
+                <div class="status-info" id="account-info">Verifying authentication</div>
+                <div class="status-info" id="calendar-info">Loading calendar settings</div>
+            </div>
+        </div>
+        
+        <!-- Settings Section -->
+        <div class="setting-group">
+            <label for="destination-calendar">Default Destination Calendar:</label>
+            <select id="destination-calendar">
+                <option value="">Select a calendar...</option>
+            </select>
+        </div>
+        
+        <div class="button-group">
+            <button id="save-settings" class="save-btn">Save Settings</button>
+            <button id="logout-btn" class="logout-btn">Logout</button>
+        </div>
+        <div id="status-message"></div>
+        
+        <!-- Help Section -->
+        <div class="help-section">
+            <h2>How It Works</h2>
+            <div class="help-content">
+                <div class="info-box">
+                    <h3>🚀 Quick Start</h3>
+                    <ol class="step-list">
+                        <li>Select your destination calendar above and click "Save Settings"</li>
+                        <li>Go to <a href="https://calendar.google.com" target="_blank">Google Calendar</a></li>
+                        <li>Click on any event to open its details</li>
+                        <li>Look for the "Duplicate" button in the event popup</li>
+                        <li>Click "Duplicate" to copy the event to your chosen calendar</li>
+                    </ol>
+                </div>
+                
+                <div class="info-box">
+                    <h3>📋 What Gets Copied</h3>
+                    <p>The extension copies these event details:</p>
+                    <ul>
+                        <li>Event title and description</li>
+                        <li>Date and time (start/end)</li>
+                        <li>Location information</li>
+                        <li>For birthday events: adds yearly recurrence automatically</li>
+                    </ul>
+                    <p><strong>Note:</strong> Attendees, attachments, video links, and existing recurring rules are not copied.</p>
+                </div>
+                
+                <div class="info-box">
+                    <h3>🔐 Permissions</h3>
+                    <p>This extension requires access to your Google Calendar to:</p>
+                    <ul>
+                        <li>Read your calendar list for destination selection</li>
+                        <li>View event details from the source event</li>
+                        <li>Create duplicate events in your chosen calendar</li>
+                    </ul>
+                    <p>Your data stays between you and Google - this extension doesn't store or send your calendar information anywhere else.</p>
+                </div>
+                
+                <div class="info-box warning-box">
+                    <h3>👤 Account & Authentication</h3>
+                    <p><strong>Important:</strong> This extension uses your Chrome profile's primary Google account for authentication.</p>
+                    <ul>
+                        <li>The extension will access calendars from the Google account you're signed into Chrome with</li>
+                        <li>If you use multiple Google accounts, the extension may not access the account you're viewing in Google Calendar</li>
+                        <li>Google's account switcher in the web browser doesn't affect which account the extension uses</li>
+                    </ul>
+                    <p><strong>For multiple account users:</strong> Use different Chrome profiles for different Google accounts, or make sure you're signed into Chrome with the same account you want to duplicate events from.</p>
+                </div>
+                
+                <details class="faq-section">
+                    <summary>❓ Troubleshooting & FAQ</summary>
+                    <div class="faq-content">
+                        <div class="faq-item">
+                            <strong>Q: I don't see the Duplicate button</strong>
+                            <p>A: Make sure you're on calendar.google.com and try refreshing the page. The button appears when you click on an event to view its details.</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>Q: The button shows an error (❌)</strong>
+                            <p>A: This usually means the extension couldn't find the original event or lacks permission. Try logging out and back in using the button above.</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>Q: Can I duplicate recurring events?</strong>
+                            <p>A: Yes, but only the specific occurrence you clicked will be copied (without the recurring rule). Birthday events automatically get yearly recurrence added.</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>Q: The extension can't access my calendar</strong>
+                            <p>A: Click "Logout" above, then visit Google Calendar to re-authorize the extension with the necessary permissions.</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>Q: My events/calendars don't show up, but I'm signed into Google Calendar</strong>
+                            <p>A: This likely means you're using different Google accounts. The extension uses your Chrome profile's primary Google account, not the account you're currently viewing in Google Calendar. Solution: Either switch to the correct Chrome profile, or sign into Chrome with the same Google account you use for Calendar.</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>Q: How do I use this with multiple Google accounts?</strong>
+                            <p>A: The easiest solution is to create separate Chrome profiles for each Google account you want to use. Each Chrome profile can have its own extension settings and will use that profile's Google account for authentication.</p>
+                        </div>
+                    </div>
+                </details>
+                
+                <div class="info-box">
+                    <h3>💡 Tips</h3>
+                    <ul>
+                        <li>The duplicate button shows a loading spinner (🔄) while working</li>
+                        <li>A checkmark (✅) confirms successful duplication</li>
+                        <li>You can change your destination calendar anytime in these settings</li>
+                        <li>The extension works with all your Google Calendar accounts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="options.js"></script>
+</body>
+</html>
