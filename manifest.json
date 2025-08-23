@@ -9,6 +9,8 @@
     "storage"
   ],
 
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtqukQyf1XOHSFr3Yx6ClhQ6WAzn+DxEyVoYwJjkECcLQJjJD6oNVSi9ssfzzhbw4HUMGN0oi48yqowmt6HvN8ev2fTSC4w5u3HzWzGYRORBRWs7xpXAeW+ElQu0PlxDZMaOpnbYYf82iwRmmFOEOIcZ/u+lUapnbPt/Cwni10UmJ24EydRyjENTtX5onJWLyocD1E1CbcwwcUERc/YnVSidUyumk+Qr6PrP9B0NyoQByRxCT/O02miQrHCil2fnGJ6JcjiwJCavUj7h6HtXlWX/W5r59fxSLUxfdhXt7eFoDTjIh0Ttri0x6bEBoI18xnwCY0f6/4Ith/lB4VyoI0QIDAQAB",
+
   "oauth2": {
     "client_id": "1084028741439-3jdvjashnrb28d2nr8ktk1b73h8iln25.apps.googleusercontent.com",
     "scopes": [
