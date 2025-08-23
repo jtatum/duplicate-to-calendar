@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Google Calendar Duplicate Events to Calendar</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: #333;
+            background: #f8f9fa;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a73e8;
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+            color: #333;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        h3 {
+            color: #666;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .highlight {
+            background: #e8f4fd;
+            border-left: 4px solid #1a73e8;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .code-block {
+            background: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 16px;
+            font-family: 'SF Mono', Monaco, Inconsolata, 'Roboto Mono', Consolas, monospace;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        ul {
+            padding-left: 1.5rem;
+        }
+        ul li {
+            margin: 0.5rem 0;
+        }
+        .back-link {
+            display: inline-block;
+            color: #1a73e8;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .effective-date {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Extension Page</a>
+        
+        <h1>Privacy Policy</h1>
+        <h2>Google Calendar Event Duplicator Extension</h2>
+        
+        <p class="effective-date"><strong>Effective Date:</strong> August 23, 2024</p>
+        
+        <h3>Overview</h3>
+        <p>Your privacy is important to us. This privacy policy explains how the Google Calendar Event Duplicator Chrome extension handles your information.</p>
+        
+        <h3>Data Collection and Usage</h3>
+        
+        <div class="highlight">
+            <strong>We do not collect, store, transmit, or access any of your personal data.</strong>
+        </div>
+        
+        <p>This extension:</p>
+        <ul>
+            <li><strong>Does NOT</strong> send any data to external servers</li>
+            <li><strong>Does NOT</strong> store your calendar information on any external systems</li>
+            <li><strong>Does NOT</strong> track your usage or behavior</li>
+            <li><strong>Does NOT</strong> collect any personal information</li>
+            <li><strong>Does NOT</strong> use analytics or telemetry</li>
+        </ul>
+        
+        <h3>How the Extension Works</h3>
+        <p>The extension operates entirely within your browser and directly communicates with Google's Calendar API using your authenticated Google account. All data processing happens locally in your browser.</p>
+        
+        <p>The extension only:</p>
+        <ol>
+            <li>Reads event information from calendar popups you open</li>
+            <li>Uses Google's Calendar API to duplicate events to your chosen destination calendar</li>
+            <li>Stores your destination calendar preference locally in your browser's extension storage</li>
+        </ol>
+        
+        <h3>Data Flow</h3>
+        <div class="code-block">
+            Your Browser ←→ Google Calendar API
+        </div>
+        <p>There are no intermediate servers, databases, or third-party services involved.</p>
+        
+        <h3>Local Storage</h3>
+        <p>The extension stores only:</p>
+        <ul>
+            <li>Your selected destination calendar ID and name (stored locally in Chrome's extension storage)</li>
+            <li>Temporary authentication tokens (managed by Chrome's identity API)</li>
+        </ul>
+        <p>This data never leaves your device.</p>
+        
+        <h3>Google Account Access</h3>
+        <p>The extension uses Google's OAuth2 system to access your calendar data. The extension requests permission to:</p>
+        <ul>
+            <li>Read your calendar list</li>
+            <li>Read individual event details</li>
+            <li>Create new events in your calendars</li>
+        </ul>
+        <p>These permissions are granted directly between you and Google. We never have access to your Google account credentials.</p>
+        
+        <h3>Third-Party Services</h3>
+        <p>This extension communicates only with:</p>
+        <ul>
+            <li><strong>Google Calendar API</strong> - for reading and creating calendar events</li>
+            <li><strong>Google OAuth2 API</strong> - for authentication</li>
+        </ul>
+        <p>No other third-party services are used.</p>
+        
+        <h3>Changes to This Policy</h3>
+        <p>If we make changes to this privacy policy, we will update the effective date above. Since we don't collect any data, any changes would be to clarify our data practices, not to change how we handle your information.</p>
+        
+        <h3>Contact</h3>
+        <p>If you have questions about this privacy policy, you can:</p>
+        <ul>
+            <li>Review the open-source code on GitHub</li>
+            <li>Contact us through the Chrome Web Store extension page</li>
+        </ul>
+        
+        <h3>Your Rights</h3>
+        <p>Since we don't collect any data, there's no personal data to request, modify, or delete. All your calendar data remains under your direct control through your Google account.</p>
+        
+        <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee; text-align: center;">
+            <a href="index.html" class="back-link">← Back to Extension Page</a>
+        </div>
+    </div>
+</body>
+</html>
