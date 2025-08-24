@@ -146,11 +146,11 @@ export function sanitizeEventData(eventData: Partial<CalendarEvent>): Partial<Ca
     }
   }
   
-  // Copy time fields if they exist and are objects (no sanitization needed for API objects)
+  // Sanitize time fields if they exist and are objects using sanitizeEventDateTime
   if (eventData.start && typeof eventData.start === 'object') {
     sanitized.start = sanitizeEventDateTime(eventData.start);
   }
-  
+
   if (eventData.end && typeof eventData.end === 'object') {
     sanitized.end = sanitizeEventDateTime(eventData.end);
   }
