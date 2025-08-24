@@ -205,6 +205,12 @@ describe('truncate', () => {
     expect(truncate('Short', 10)).toBe('Short');
     expect(truncate('', 5)).toBe('');
   });
+
+  it('should handle very small maxLength values', () => {
+    expect(truncate('Hello', 3)).toBe('Hel');
+    expect(truncate('Hello', 2)).toBe('He');
+    expect(truncate('Hello', 0)).toBe('');
+  });
 });
 
 describe('createId', () => {

@@ -231,12 +231,18 @@ export function capitalize(text: string): string {
 }
 
 /**
- * Truncates text to a specified length and adds ellipsis if needed
+ * Truncates text to a specified length and adds ellipsis if needed.
+ * For very small limits (≤3), returns the substring without an ellipsis.
  */
 export function truncate(text: string, maxLength: number): string {
   if (!text || text.length <= maxLength) {
     return text;
   }
+
+  if (maxLength <= 3) {
+    return text.substring(0, maxLength);
+  }
+
   return text.substring(0, maxLength - 3) + '...';
 }
 
