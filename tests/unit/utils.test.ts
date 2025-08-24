@@ -52,7 +52,9 @@ describe('retryWithBackoff', () => {
 });
 
 describe('debounce', () => {
-  it('should debounce function calls', async () => {
+  it('should debounce function calls', () => {
+    jest.useFakeTimers();
+
     const mockFn = jest.fn();
     const debouncedFn = debounce(mockFn, 50);
 
@@ -63,16 +65,20 @@ describe('debounce', () => {
     // Should not be called yet
     expect(mockFn).not.toHaveBeenCalled();
 
-    await delay(60);
+    jest.runAllTimers();
 
     // Should be called once with the last arguments
     expect(mockFn).toHaveBeenCalledTimes(1);
     expect(mockFn).toHaveBeenCalledWith('arg3');
+
+    jest.useRealTimers();
   });
 });
 
 describe('throttle', () => {
-  it('should throttle function calls', async () => {
+  it('should throttle function calls', () => {
+    jest.useFakeTimers();
+
     const mockFn = jest.fn();
     const throttledFn = throttle(mockFn, 50);
 
@@ -84,13 +90,16 @@ describe('throttle', () => {
     expect(mockFn).toHaveBeenCalledTimes(1);
     expect(mockFn).toHaveBeenCalledWith('arg1');
 
-    await delay(60);
+    jest.runAllTimers();
 
     throttledFn('arg4');
-    
+
     // Should be called again after the throttle period
     expect(mockFn).toHaveBeenCalledTimes(2);
     expect(mockFn).toHaveBeenCalledWith('arg4');
+
+    jest.runAllTimers();
+    jest.useRealTimers();
   });
 });
 
