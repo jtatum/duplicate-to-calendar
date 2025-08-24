@@ -2,7 +2,7 @@
 
 import { ButtonState, ButtonStateConfig } from '../../shared/types.js';
 import { BUTTON_CONFIG } from '../../shared/constants.js';
-import { sanitizeText } from '../../shared/sanitizers.js';
+import { sanitizeForDOM } from '../../shared/sanitizers.js';
 import { log } from '../../shared/utils.js';
 
 export class ButtonStateManager {
@@ -35,8 +35,9 @@ export class ButtonStateManager {
       button.classList.add(stateConfig.className);
     }
     
-    // Update button content
-    this.updateButtonContent(button, stateConfig.icon, sanitizeText(text));
+    // Update button content with sanitized (but unencoded) text
+    const sanitizedText = sanitizeForDOM(text);
+    this.updateButtonContent(button, stateConfig.icon, sanitizedText);
     
     // Set disabled state
     button.disabled = stateConfig.disabled || false;
