@@ -39,39 +39,38 @@ export function sanitizeForDOM(text: unknown): string {
 }
 
 /**
- * Sanitizes and truncates event summary
+ * Validates and length-limits a plain-text event field for API submission.
+ * The Calendar API receives these values as JSON strings and stores them
+ * verbatim, so HTML-encoding here would corrupt the copy (e.g. "Q&A" would
+ * become "Q&amp;A"). Escape at render time instead.
+ */
+function limitEventText(value: unknown, maxLength: number): string | undefined {
+  if (!value || typeof value !== 'string') {
+    return undefined;
+  }
+
+  return value.substring(0, maxLength) || undefined;
+}
+
+/**
+ * Validates and length-limits event summary
  */
 export function sanitizeEventSummary(summary: unknown): string | undefined {
-  if (!summary || typeof summary !== 'string') {
-    return undefined;
-  }
-  
-  const sanitized = sanitizeText(summary);
-  return sanitized.substring(0, VALIDATION_LIMITS.SUMMARY_MAX_LENGTH) || undefined;
+  return limitEventText(summary, VALIDATION_LIMITS.SUMMARY_MAX_LENGTH);
 }
 
 /**
- * Sanitizes and truncates event description
+ * Validates and length-limits event description
  */
 export function sanitizeEventDescription(description: unknown): string | undefined {
-  if (!description || typeof description !== 'string') {
-    return undefined;
-  }
-  
-  const sanitized = sanitizeText(description);
-  return sanitized.substring(0, VALIDATION_LIMITS.DESCRIPTION_MAX_LENGTH) || undefined;
+  return limitEventText(description, VALIDATION_LIMITS.DESCRIPTION_MAX_LENGTH);
 }
 
 /**
- * Sanitizes and truncates event location
+ * Validates and length-limits event location
  */
 export function sanitizeEventLocation(location: unknown): string | undefined {
-  if (!location || typeof location !== 'string') {
-    return undefined;
-  }
-  
-  const sanitized = sanitizeText(location);
-  return sanitized.substring(0, VALIDATION_LIMITS.LOCATION_MAX_LENGTH) || undefined;
+  return limitEventText(location, VALIDATION_LIMITS.LOCATION_MAX_LENGTH);
 }
 
 /**
