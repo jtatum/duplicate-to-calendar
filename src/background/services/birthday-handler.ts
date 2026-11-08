@@ -71,31 +71,33 @@ export class BirthdayEventHandler {
    * Matches a birthday event from the search results
    */
   private matchBirthdayEvent(birthdayEvents: CalendarEvent[], eventInfo: EventInfo): CalendarEvent | null {
-    for (const event of birthdayEvents) {
-      log('info', 'Checking birthday event for match');
+    // Check every event for a strong match before accepting a weaker one.
+    // Otherwise the first birthday in the list wins the loose ID-pattern
+    // check, even when a later event has the exact ID or title.
 
-      // Try matching by event ID patterns
-      if (eventInfo.eventId && event.id) {
-        // Direct match
-        if (validateEventId(event.id) && event.id === eventInfo.eventId) {
-          log('info', 'Found birthday event by direct ID match');
-          return event;
-        }
+    // Direct ID match
+    const byId = eventInfo.eventId
+      ? birthdayEvents.find(event => validateEventId(event.id) && event.id === eventInfo.eventId)
+      : undefined;
+    if (byId) {
+      log('info', 'Found birthday event by direct ID match');
+      return byId;
+    }
 
-        // Check if the event ID contains birthday patterns that match
-        if (validateEventId(event.id) && 
-            this.hasBirthdayPattern(eventInfo.eventId) && 
-            this.hasBirthdayPattern(event.id)) {
-          log('info', 'Found birthday event by ID pattern match');
-          return event;
-        }
-      }
+    // Title match
+    const byTitle = birthdayEvents.find(event => this.matchByTitle(event, eventInfo));
+    if (byTitle) {
+      log('info', 'Found birthday event by title match');
+      return byTitle;
+    }
 
-      // Try matching by title if available
-      if (this.matchByTitle(event, eventInfo)) {
-        log('info', 'Found birthday event by title match');
-        return event;
-      }
+    // Fallback: both IDs contain a birthday pattern
+    const byPattern = eventInfo.eventId && this.hasBirthdayPattern(eventInfo.eventId)
+      ? birthdayEvents.find(event => validateEventId(event.id) && this.hasBirthdayPattern(event.id))
+      : undefined;
+    if (byPattern) {
+      log('info', 'Found birthday event by ID pattern match');
+      return byPattern;
     }
 
     log('info', 'No matching birthday event found');
