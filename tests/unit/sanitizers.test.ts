@@ -52,8 +52,8 @@ describe('sanitizeForDOM', () => {
 });
 
 describe('sanitizeEventSummary', () => {
-  it('should sanitize and truncate event summaries', () => {
-    expect(sanitizeEventSummary('Meeting with <John>')).toBe('Meeting with &lt;John&gt;');
+  it('should keep event summaries verbatim and reject empty values', () => {
+    expect(sanitizeEventSummary('Meeting with <John>')).toBe('Meeting with <John>');
     expect(sanitizeEventSummary('')).toBe(undefined);
     expect(sanitizeEventSummary(null)).toBe(undefined);
   });
@@ -77,6 +77,29 @@ describe('sanitizeEventId', () => {
 });
 
 describe('sanitizeEventData', () => {
+  it('should not HTML-encode text sent to the Calendar API', () => {
+    const result = sanitizeEventData({
+      summary: "Q&A: Tom's \"5 < 10\" talk",
+      description: '<a href="https://example.com/?a=1&b=2">Agenda</a>',
+      location: 'Barnes & Noble',
+    });
+
+    expect(result.summary).toBe("Q&A: Tom's \"5 < 10\" talk");
+    expect(result.description).toBe('<a href="https://example.com/?a=1&b=2">Agenda</a>');
+    expect(result.location).toBe('Barnes & Noble');
+  });
+
+  it('should keep descriptions up to the description limit instead of the 500-character display limit', () => {
+    const description = 'd'.repeat(2000);
+    const summary = 's'.repeat(800);
+
+    const result = sanitizeEventData({ summary, description, location: 'l'.repeat(1200) });
+
+    expect(result.description).toBe(description);
+    expect(result.summary).toBe(summary);
+    expect(result.location).toHaveLength(1000);
+  });
+
   it('should sanitize complete event objects', () => {
     const eventData = {
       summary: 'Test <Event>',
@@ -89,9 +112,9 @@ describe('sanitizeEventData', () => {
 
     const result = sanitizeEventData(eventData);
     
-    expect(result.summary).toBe('Test &lt;Event&gt;');
-    expect(result.description).toBe('Event &quot;description&quot;');
-    expect(result.location).toBe('Location &amp; Place');
+    expect(result.summary).toBe('Test <Event>');
+    expect(result.description).toBe('Event "description"');
+    expect(result.location).toBe('Location & Place');
     expect(result.start).toEqual({ dateTime: '2023-12-25T10:00:00Z' });
     expect(result.end).toEqual({ dateTime: '2023-12-25T11:00:00Z' });
     expect(result.recurrence).toHaveLength(2); // Both rules should be present but second one sanitized
